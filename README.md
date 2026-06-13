@@ -9,6 +9,18 @@
 
 ---
 
+## 📂 Repository structure
+```
+azure-cloud-soc-lab/
+├── diagrams/      → architecture, Red Team/WAF flow, GeoIP attack map
+├── kql/           → detection & hunting queries (brute-force, logon, WAF, GeoIP)
+├── media/         → demo GIFs (WAF block, firewall logs, Sentinel detection)
+├── presentation/  → full project write-up (PDF)
+└── README.md
+```
+
+---
+
 ## 🎥 Demos
 
 ### WAF blocks a SQL injection in real time
@@ -74,10 +86,10 @@ Attacker IPs from failed-logon events, enriched via a GeoIP watchlist (`ipv4_loo
 See the [`kql/`](kql/) folder:
 | Rule | Detects | MITRE |
 |------|---------|-------|
-| RDP brute-force | Failed logons (4625) grouped by source IP | T1110.001 |
-| Successful logon | Real network/RDP logon (tuned to exclude noise) | T1078 |
-| GeoIP attack map | Enriches attacker IPs with location | — |
-| WAF attack hunt | Matched attacks in `AGWFirewallLogs` | — |
+| [RDP brute-force](kql/failed-logons-bruteforce.kql) | Failed logons (4625) grouped by source IP | T1110.001 |
+| [Successful logon](kql/successful-logon-detection.kql) | Real network/RDP logon (tuned to exclude noise) | T1078 |
+| [GeoIP attack map](kql/attack-map-geoip.kql) | Enriches attacker IPs with location | — |
+| [WAF attack hunt](kql/waf-firewall-logs.kql) | Matched attacks in `AGWFirewallLogs` | — |
 
 ---
 
@@ -95,3 +107,6 @@ See the [`kql/`](kql/) folder:
 
 **Abdulrahman Alzahrani** — Penetration Tester | Cybersecurity Analyst
 🔗 [LinkedIn](https://linkedin.com/in/d7meealz) · ✍️ [Medium](https://medium.com/@d7meealz)
+
+---
+> ⚠️ **Lab environment.** All offensive testing was performed against my own intentionally vulnerable resources (OWASP Juice Shop) in an isolated Azure subscription. The honeypot was deliberately exposed to observe real-world attack traffic.
