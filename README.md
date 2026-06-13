@@ -32,11 +32,23 @@ A scheduled analytics rule detects RDP brute-force: external IPs spraying admin 
 
 ![Architecture](diagrams/architecture.png)
 
-**Two attack surfaces feed one SOC:**
-- 🪤 A Windows honeypot (exposed RDP) → host/identity detections
-- 🌐 A WAF-protected web app (OWASP Juice Shop) → web-attack detections
+**Blue Team surface — the honeypot pipeline:** internet attackers hit an exposed Windows VM (RDP :3389 via NSG); its security events flow through the Log Analytics workspace into Microsoft Sentinel.
 
-Both stream into a single Log Analytics workspace and Microsoft Sentinel.
+![Red Team / WAF flow](diagrams/pentest.png)
+
+**Red Team surface — the web app:** attacks routed through Burp to an Application Gateway WAF protecting OWASP Juice Shop; malicious payloads are blocked with **403 Forbidden** before reaching the app.
+
+Both surfaces stream into the **same** Log Analytics workspace and Microsoft Sentinel — one unified SOC.
+
+---
+
+### 🌍 GeoIP Attack Map
+
+Attacker IPs from failed-logon events, enriched via a GeoIP watchlist (`ipv4_lookup`) and plotted on a world map — visual proof of constant, worldwide automated attacks against the honeypot.
+
+![GeoIP attack map](diagrams/attack-map.png)
+
+*Counts are total failed-logon attempts per location (not unique attackers); locations reflect IP hosting, not necessarily the attacker's true origin.*
 
 ---
 
