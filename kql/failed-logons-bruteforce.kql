@@ -1,1 +1,7 @@
+SecurityEvent
+| where EventID == 4625
+| where IpAddress != "" and IpAddress != "-"
+| summarize Attempts = count(), GuessedAccounts = make_set(TargetUserName)
+    by IpAddress, bin(TimeGenerated, 10m)
+| where Attempts >= 5
 
