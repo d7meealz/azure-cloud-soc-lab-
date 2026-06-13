@@ -54,16 +54,6 @@ Both surfaces stream into the **same** Log Analytics workspace and Microsoft Sen
 
 ---
 
-### 🌍 GeoIP Attack Map
-
-Attacker IPs from failed-logon events, enriched via a GeoIP watchlist (`ipv4_lookup`) and plotted on a world map — visual proof of constant, worldwide automated attacks against the honeypot.
-
-![GeoIP attack map](diagrams/attack-map.png)
-
-*Counts are total failed-logon attempts per location (not unique attackers); locations reflect IP hosting, not necessarily the attacker's true origin.*
-
----
-
 ## 🔵 Blue Team — Detection & Response
 - Deployed a Windows 10 honeypot with RDP exposed to the internet
 - Connected it to Microsoft Sentinel via the Azure Monitor Agent (AMA) + a Data Collection Rule
@@ -79,6 +69,16 @@ Attacker IPs from failed-logon events, enriched via a GeoIP watchlist (`ipv4_loo
 - Placed an Azure Application Gateway **WAF (OWASP CRS)** in front, in Prevention mode
 - Re-ran the attacks → blocked with **403 Forbidden**
 - Routed WAF logs into the same SOC and hunted attacks in `AGWFirewallLogs`
+
+---
+
+### 🌍 GeoIP Attack Map
+
+Attacker IPs from failed-logon events, enriched via a GeoIP watchlist (`ipv4_lookup`) and plotted on a world map — visual proof of constant, worldwide automated attacks against the honeypot.
+
+![GeoIP attack map](diagrams/attack-map.png)
+
+*Counts are total failed-logon attempts per location (not unique attackers); locations reflect IP hosting, not necessarily the attacker's true origin.*
 
 ---
 
@@ -107,6 +107,3 @@ See the [`kql/`](kql/) folder:
 
 **Abdulrahman Alzahrani** — Penetration Tester | Cybersecurity Analyst
 🔗 [LinkedIn](https://linkedin.com/in/d7meealz) · ✍️ [Medium](https://medium.com/@d7meealz)
-
----
-> ⚠️ **Lab environment.** All offensive testing was performed against my own intentionally vulnerable resources (OWASP Juice Shop) in an isolated Azure subscription. The honeypot was deliberately exposed to observe real-world attack traffic.
