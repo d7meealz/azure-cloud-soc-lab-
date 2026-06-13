@@ -42,6 +42,9 @@ A scheduled analytics rule detects RDP brute-force: external IPs spraying admin 
 
 ## 🧭 Architecture
 
+![Architecture](diagrams/architecture.svg)
+
+
 ![Architecture](diagrams/architecture.png)
 
 **Blue Team surface — the honeypot pipeline:** internet attackers hit an exposed Windows VM (RDP :3389 via NSG); its security events flow through the Log Analytics workspace into Microsoft Sentinel.
